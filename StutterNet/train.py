@@ -81,7 +81,7 @@ def train(net, trainloader, criterion, batch_size, target_names,
     num_samples = num_batches * batch_size
 
     if (verbose):
-      print("\nepoch {}/{}".format(i+1,epochs))
+      print("\nepoch {}/{}".format(i+1, start_epoch+epochs))
       pbar = Progbar(target=num_batches)
 
     # if (metrics is not None):
