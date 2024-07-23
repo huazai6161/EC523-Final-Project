@@ -53,10 +53,11 @@ def train(net, trainloader, criterion, batch_size, target_names,
     optimizer = torch.optim.Adam(net.parameters(), lr=1e-4, amsgrad=True)
     
   if (checkpoint_dir is not None):
-    state, optim_state = torch.load(os.path.join(
-        checkpoint_dir, "checkpoint"))
-    net.load_state_dict(state)
-    optimizer.load_state_dict(optim_state)
+    # state, optim_state = torch.load(os.path.join(
+    #     checkpoint_dir, "checkpoint"))
+    state = torch.load(checkpoint_dir)
+    net.load_state_dict(state['state_dict'])
+    optimizer.load_state_dict(state['optimizer'])
 
   assert epochs > 0, "Assertion failed. epochs must be greater than 0!"
 
