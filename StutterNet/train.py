@@ -51,11 +51,14 @@ def train(net, trainloader, criterion, batch_size, target_names,
 
   if (optimizer is None):
     optimizer = torch.optim.Adam(net.parameters(), lr=1e-4, amsgrad=True)
-    
+
+  start_epoch = 0
+	
   if (checkpoint_dir is not None):
     # state, optim_state = torch.load(os.path.join(
     #     checkpoint_dir, "checkpoint"))
     state = torch.load(checkpoint_dir)
+    start_epoch = state['epoch']
     net.load_state_dict(state['state_dict'])
     optimizer.load_state_dict(state['optimizer'])
 
@@ -73,7 +76,7 @@ def train(net, trainloader, criterion, batch_size, target_names,
     from ray import tune
     import os
 
-  for i in range(epochs):
+  for i in range(start_epoch, start_epoch + epochs):
     num_batches = len(trainloader)
     num_samples = num_batches * batch_size
 
